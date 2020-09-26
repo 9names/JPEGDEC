@@ -95,7 +95,7 @@ typedef struct jpeg_file_tag
 {
   int32_t iPos; // current file position
   int32_t iSize; // file size
-  uint8_t *pData; // memory file pointer
+  const uint8_t *pData; // memory file pointer
   void * fHandle; // class pointer to File/SdFat or whatever you want
 } JPEGFILE;
 
@@ -197,8 +197,8 @@ typedef struct jpeg_image_tag
 class JPEGDEC
 {
   public:
-    int openRAM(uint8_t *pData, int iDataSize, JPEG_DRAW_CALLBACK *pfnDraw);
-    int openFLASH(uint8_t *pData, int iDataSize, JPEG_DRAW_CALLBACK *pfnDraw);
+    int openRAM(const uint8_t *pData, int iDataSize, JPEG_DRAW_CALLBACK *pfnDraw);
+    int openFLASH(const uint8_t *pData, int iDataSize, JPEG_DRAW_CALLBACK *pfnDraw);
     int open(const char *szFilename, JPEG_OPEN_CALLBACK *pfnOpen, JPEG_CLOSE_CALLBACK *pfnClose, JPEG_READ_CALLBACK *pfnRead, JPEG_SEEK_CALLBACK *pfnSeek, JPEG_DRAW_CALLBACK *pfnDraw);
     void close();
     int decode(int x, int y, int iOptions);
@@ -220,7 +220,7 @@ class JPEGDEC
 };
 #else
 #define JPEG_STATIC
-int JPEG_openRAM(JPEGIMAGE *pJPEG, uint8_t *pData, int iDataSize, JPEG_DRAW_CALLBACK *pfnDraw);
+int JPEG_openRAM(JPEGIMAGE *pJPEG, const uint8_t *pData, int iDataSize, JPEG_DRAW_CALLBACK *pfnDraw);
 int JPEG_openFile(JPEGIMAGE *pJPEG, const char *szFilename, JPEG_DRAW_CALLBACK *pfnDraw);
 int JPEG_getWidth(JPEGIMAGE *pJPEG);
 int JPEG_getHeight(JPEGIMAGE *pJPEG);
